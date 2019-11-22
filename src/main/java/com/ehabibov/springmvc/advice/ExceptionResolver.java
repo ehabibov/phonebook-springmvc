@@ -18,7 +18,7 @@ public class ExceptionResolver {
         ExceptionInfo info = new ExceptionInfo();
         info.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         info.setUrl(request.getRequestURL().toString());
-        info.setMessage(String.format("Resource not found. %s", ex.getMessage()));
+        info.setMessage(String.format("Resource not found: %s", ex.getMessage()));
         return info;
     }
 
@@ -28,15 +28,18 @@ public class ExceptionResolver {
         ExceptionInfo info = new ExceptionInfo();
         info.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         info.setUrl(request.getRequestURL().toString());
-        info.setMessage(String.format("Entity exists. %s", ex.getMessage()));
+        info.setMessage(String.format("Entity exists: %s", ex.getMessage()));
         return info;
     }
 
     @ExceptionHandler(FileNotFoundException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String fileNotFoundHandler(HttpServletRequest request, FileNotFoundException ex){
-        //request.getRequestURL().toString();
-        return ex.getMessage();
+    public ExceptionInfo fileNotFoundHandler(HttpServletRequest request, FileNotFoundException ex){
+        ExceptionInfo info = new ExceptionInfo();
+        info.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        info.setUrl(request.getRequestURL().toString());
+        info.setMessage(String.format("File not found: %s", ex.getMessage()));
+        return info;
     }
 
 }

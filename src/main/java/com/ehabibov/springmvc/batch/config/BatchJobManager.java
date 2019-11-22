@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,9 +34,9 @@ public class BatchJobManager {
     }
 
     public ResponseEntity startPhoneBookCsvDataload(String filePath) throws FileNotFoundException {
-        if (filePath == null) {
-            filePath = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX.concat(phoneBookCsvPath)).getPath();
-        }
+        filePath = (filePath == null)
+                ? this.checkFilePathExists(ResourceUtils.CLASSPATH_URL_PREFIX.concat(phoneBookCsvPath))
+                : this.checkFilePathExists(filePath);
         Map<String, JobParameter> parameterMap = new HashMap<>();
         parameterMap.put(Jobs.JOB_PARAM_FILE_NAME, new JobParameter(filePath));
         parameterMap.put("JobID", new JobParameter(String.valueOf(System.currentTimeMillis())));
@@ -45,5 +46,15 @@ public class BatchJobManager {
             return new ResponseEntity<>("Failure: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
+
+    private String checkFilePathExists(String path) throws FileNotFoundException {
+        File file = ResourceUtils.getFile(path);
+        if (file.exists()){
+            path = file.getPath();
+        } else {
+            throw new FileNotFoundException(path);
+        }
+        return path;
     }
 }
