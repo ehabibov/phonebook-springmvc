@@ -16,6 +16,7 @@ Shutdown embedded tomcat:
 In case shutdown could not be performed (as to buggy plugin) - exec `jcmd`, remember procID of `tomcat7:run-war` and `kill -9 {procID}`
 
 ## API
+[Online docs](https://raw.githack.com/ehabibov/phonebook-springmvc/master/docs/api-spec.html)  
 
 GET `/batch/jobs/phonebook-csv-dataload` - perform initial dataload from CSV file which declared by property `batch.csv.dataload.file.path`  
 GET `/batch/jobs/phonebook-csv-dataload?filePath=/home/user/file.csv` - perform initial dataload from CSV file which declared by absolute system path  
@@ -27,7 +28,7 @@ Payload example: `{"name":"Jill","phone":"+13975554201"}`
 * in case number already assigned to existing customer - 500 code returned
 
 PUT `/api/v1/customers/{name}` - update specific customer's telephone number  
-    Payload example: `{phone":"+13975554201"}`
+    Payload example: `{"phone":"+13975554201"}`
 * in case customer does not exist - 500 code returned
 * in case number already assigned to target customer - rewrite performed
 * in case number already assigned to another customer - 500 code returned

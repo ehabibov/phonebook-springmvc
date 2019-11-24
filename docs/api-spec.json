@@ -1,0 +1,229 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample phonebook app based on Spring MVC but without 'V'",
+    "version": "1.0.0",
+    "title": "Phonebook",
+    "contact": {
+      "email": "qasloth@gmail.com"
+    }
+  },
+  "host": "localhost:8080",
+  "tags": [
+    {
+      "name": "customers",
+      "description": "* Assumed that customers names are single-worded.\n* Assumed that at startup there are no duplicated phone numbers under different customers."
+    },
+    {
+      "name": "dataload",
+      "description": "Initial dataload based on Spring Batch",
+      "externalDocs": {
+        "description": "Spring Batch doc",
+        "url": "https://docs.spring.io/spring-batch/docs/current/reference/html/spring-batch-intro.html"
+      }
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/api/v1/customers": {
+      "get":{
+        "tags": ["customers"],
+        "summary": "Get all customers",
+        "description": "Returns all customers and their telephone numbers",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerRead"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["customers"],
+        "summary": "Create new customer",
+        "description": "Create one customer with name and one number",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Customer's name and telephone number",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "number already assigned to existing customer"
+          }
+        }
+      }
+    },
+    "/api/v1/customers/{name}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "name",
+          "description": "Customer's name",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": "Jack"
+        }
+      ],
+      "get": {
+        "tags": ["customers"],
+        "summary": "Get customer",
+        "description": "Get all telephone numbers of the specific customer",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "example": "+13975559101"
+              }
+            }
+          }
+        }
+     },
+      "put" : {
+        "tags": ["customers"],
+        "summary": "Update customer",
+        "description": "Add additional telephone number to specific customer",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Number to be added",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "example": "+13975559101"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "number already assigned to another customer OR customer does not exist"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["customers"],
+        "summary": "Delete customer",
+        "description": "Delete specific customer",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "customer does not exist"
+          }
+        }
+      }
+    },
+    "/api/v1/customers/reset": {
+      "get": {
+        "tags": ["customers"],
+        "summary": "Delete all customers",
+        "description": "Clean up customers storage",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/batch/jobs/phonebook-csv-dataload": {
+      "get": {
+        "tags": ["dataload"],
+        "summary": "Upload customers",
+        "description": "Load customers data from default CSV file or from local one which passed via query param",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "filePath",
+            "description": "Absolute path to local CSV file",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "/home/user/file.csv"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "definitions": {
+    "CustomerRead": {
+      "type": "object",
+      "properties": {
+        "name" : {
+          "type": "string",
+          "example": "Jack"
+        },
+        "phoneNumbers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "+13975559101"
+          }
+        }
+      }
+    },
+    "CustomerCreate": {
+      "type": "object",
+      "required": ["name", "phone"],
+      "properties": {
+        "name" : {
+          "type": "string",
+          "example": "Jack"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+13975559101"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Source",
+    "url": "https://github.com/ehabibov/phonebook-springmvc"
+  }
+}
