@@ -1,11 +1,11 @@
 package com.ehabibov.springtest.bindings;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.Set;
 
 public class CustomerResponseBinding implements Serializable {
+    private static final long serialVersionUID = -2327266608087174393L;
 
     private String name;
     @JsonProperty("phoneNumbers")

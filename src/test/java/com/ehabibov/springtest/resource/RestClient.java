@@ -2,6 +2,7 @@ package com.ehabibov.springtest.resource;
 
 import com.ehabibov.springtest.config.PropertiesStorage;
 import com.ehabibov.springtest.context.ApplicationContextSingleton;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public abstract class RestClient {
 
-    static AbstractApplicationContext context = ApplicationContextSingleton.getContext();
+    private static AbstractApplicationContext context = ApplicationContextSingleton.getContext();
     static PropertiesStorage storage = context.getBean(PropertiesStorage.class);
 
     public <T> ResponseEntity<T> getExchangeAsSingle(String API, HttpHeaders headers, Class<T> responseType) {

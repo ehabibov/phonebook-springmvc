@@ -1,8 +1,6 @@
 package com.ehabibov.springmvc.bindings;
 
-import java.io.Serializable;
-
-public class CreateCustomerRequestBinding implements Serializable {
+public class CreateCustomerRequestBinding implements java.io.Serializable {
     private static final long serialVersionUID = 2359710841348114969L;
 
     private String name;

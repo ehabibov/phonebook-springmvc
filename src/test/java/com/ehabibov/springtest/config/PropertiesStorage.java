@@ -19,7 +19,6 @@ public class PropertiesStorage {
         return customersJobUrl;
     }
 
-
     public String getCustomersUrl() {
         return customersUrl;
     }
