@@ -2,7 +2,7 @@ package com.ehabibov.springmvc.controller;
 
 import com.ehabibov.springmvc.bindings.CreateCustomerRequestBinding;
 import com.ehabibov.springmvc.bindings.UpdateCustomerRequestBinding;
-import com.ehabibov.springmvc.entity.Customer;
+import com.ehabibov.springmvc.entity.memory.Customer;
 import com.ehabibov.springmvc.exception.EntityAlreadyExistException;
 import com.ehabibov.springmvc.exception.ResourceNotFoundException;
 import com.ehabibov.springmvc.service.PhoneBookService;

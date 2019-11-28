@@ -1,24 +1,23 @@
 package com.ehabibov.springmvc.repository;
 
-import com.ehabibov.springmvc.entity.Customer;
+import com.ehabibov.springmvc.entity.memory.Customer;
 import com.ehabibov.springmvc.exception.EntityAlreadyExistException;
 import com.ehabibov.springmvc.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
-public class PhoneBookRepositoryImpl implements PhoneBookRepository {
+public class PhoneBookMemoryRepository implements PhoneBookRepository {
 
     private Set<Customer> data;
 
-    public PhoneBookRepositoryImpl() {
+    public PhoneBookMemoryRepository() {
         this(new LinkedHashSet<>());
     }
 
-    @Autowired
-    public PhoneBookRepositoryImpl(Set<Customer> data) {
+/*    @Autowired*/
+    public PhoneBookMemoryRepository(Set<Customer> data) {
         this.data = new LinkedHashSet<>(data);
     }
 

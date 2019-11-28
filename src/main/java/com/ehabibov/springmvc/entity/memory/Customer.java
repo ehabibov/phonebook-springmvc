@@ -1,4 +1,4 @@
-package com.ehabibov.springmvc.entity;
+package com.ehabibov.springmvc.entity.memory;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;

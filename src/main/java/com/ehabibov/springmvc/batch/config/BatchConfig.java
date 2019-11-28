@@ -1,9 +1,10 @@
 package com.ehabibov.springmvc.batch.config;
 
-import com.ehabibov.springmvc.batch.InMemoryItemWriter;
+import com.ehabibov.springmvc.batch.writer.InMemoryItemWriter;
 import com.ehabibov.springmvc.batch.Jobs;
 import com.ehabibov.springmvc.batch.mapper.CustomerMapper;
-import com.ehabibov.springmvc.entity.Customer;
+import com.ehabibov.springmvc.batch.writer.DatabaseItemWriter;
+import com.ehabibov.springmvc.entity.memory.Customer;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.*;
@@ -73,8 +74,13 @@ public class BatchConfig extends DefaultBatchConfigurer {
         return reader;
     }
 
-    @Bean
-    public InMemoryItemWriter<Customer> writer() {
+    @Bean(name = "memoryWriter")
+    public InMemoryItemWriter<Customer> inMemoryWriter() {
         return new InMemoryItemWriter<>();
+    }
+
+    @Bean(name = "databaseWriter")
+    public DatabaseItemWriter<Customer> databaseWriter() {
+        return new DatabaseItemWriter<>();
     }
 }

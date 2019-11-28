@@ -1,6 +1,6 @@
 package com.ehabibov.springmvc.repository;
 
-import com.ehabibov.springmvc.entity.Customer;
+import com.ehabibov.springmvc.entity.memory.Customer;
 import com.ehabibov.springmvc.exception.EntityAlreadyExistException;
 import com.ehabibov.springmvc.exception.ResourceNotFoundException;
 

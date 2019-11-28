@@ -1,16 +1,16 @@
-package com.ehabibov.springmvc.batch;
+package com.ehabibov.springmvc.batch.writer;
 
-import com.ehabibov.springmvc.entity.Customer;
-import com.ehabibov.springmvc.repository.PhoneBookRepositoryImpl;
+import com.ehabibov.springmvc.entity.memory.Customer;
+import com.ehabibov.springmvc.repository.PhoneBookDatabaseRepository;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class InMemoryItemWriter<T> implements ItemWriter<T> {
+public class DatabaseItemWriter<T> implements ItemWriter<T> {
 
     @Autowired
-    PhoneBookRepositoryImpl repo;
+    PhoneBookDatabaseRepository repo;
 
     @Override
     public void write(List<? extends T> items) {
