@@ -11,7 +11,7 @@
     <name>PhoneBook Spring MVC Demo</name>
 
     <properties>
-        <spring.version>5.2.1.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <servlets.version>3.1.0</servlets.version>
         <jsp.version>2.3.1</jsp.version>
         <junit5.version>5.3.2</junit5.version>
